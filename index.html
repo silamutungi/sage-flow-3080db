@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sage Flow — Book Your Yoga Practice</title>
+  <meta name="description" content="Sage Flow is the booking platform for your yoga studio. Reserve classes, manage your schedule, and deepen your practice — all in one place." />
+  <meta property="og:title" content="Sage Flow — Book Your Yoga Practice" />
+  <meta property="og:description" content="Reserve classes, manage your schedule, and deepen your practice." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sage Flow — Book Your Yoga Practice" />
+  <meta name="twitter:description" content="Reserve classes, manage your schedule, and deepen your practice." />
+  <link rel="canonical" href="" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1B4332;
+      --primary-light: #2D6A4F;
+      --primary-lighter: #40916C;
+      --cream: #FAF7F2;
+      --sand: #F0EBE3;
+      --bark: #3D3229;
+      --charcoal: #1A1A1A;
+      --text: #2C2C2C;
+      --text-muted: #5C5C5C;
+      --white: #FFFFFF;
+      --border: #D4CFC7;
+      --radius: 4px;
+      --radius-lg: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+
+    .nav-links a {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a:focus { color: var(--primary); }
+
+    .nav-links a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 2px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      margin-top: 64px;
+      min-height: calc(100vh - 64px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+      background: var(--cream);
+    }
+
+    .hero-eyebrow {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--primary);
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-tagline {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 400px;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 52px;
+      min-width: 44px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: var(--primary-light); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 52px;
+      min-width: 44px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--primary); color: #FFFFFF; }
+    .btn-outline:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+
+    .hero-right {
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pattern {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 40px;
+    }
+
+    .pattern-line {
+      width: 60%;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .hero-circle {
+      width: 200px;
+      height: 200px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-circle-inner {
+      width: 120px;
+      height: 120px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+    }
+
+    /* ─── SCHEDULE SECTION ─── */
+    .section {
+      padding: 96px 64px;
+    }
+
+    .section-dark {
+      background: var(--bark);
+      color: var(--cream);
+    }
+
+    .section-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .section-dark .section-label { color: rgba(250,247,242,0.5); }
+
+    h2 {
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 56px;
+      max-width: 600px;
+    }
+
+    .section-dark h2 { color: var(--cream); }
+
+    /* ─── CLASS CARDS ─── */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .class-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .class-card:hover {
+      border-color: var(--primary-lighter);
+      box-shadow: 0 4px 24px rgba(27,67,50,0.08);
+    }
+
+    .class-time {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .class-name {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .class-meta {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .class-spots {
+      font-size: 12px;
+      background: var(--sand);
+      padding: 4px 12px;
+      border-radius: 100px;
+      color: var(--text-muted);
+    }
+
+    .class-book {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 8px 0;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .class-book:hover { color: var(--primary-light); }
+    .class-book:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+
+    /* ─── FEATURES ─── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .feature-number {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(250,247,242,0.4);
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: var(--cream);
+    }
+
+    .feature p {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(250,247,242,0.6);
+    }
+
+    /* ─── PRICING ─── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .price-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+    }
+
+    .price-card.featured {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--cream);
+    }
+
+    .price-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .price-card.featured .price-label { color: rgba(250,247,242,0.5); }
+
+    .price-amount {
+      font-size: 42px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .price-card.featured .price-amount { color: var(--cream); }
+
+    .price-period {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .price-card.featured .price-period { color: rgba(250,247,242,0.5); }
+
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex: 1;
+    }
+
+    .price-features li {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .price-features li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    .price-card.featured .price-features li { color: rgba(250,247,242,0.7); }
+    .price-card.featured .price-features li::before { color: rgba(250,247,242,0.3); }
+
+    .btn-price {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 48px;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .btn-price-default {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-price-default:hover { background: var(--primary); color: #FFFFFF; }
+
+    .btn-price-featured {
+      background: var(--cream);
+      color: var(--primary);
+      border: 2px solid var(--cream);
+    }
+
+    .btn-price-featured:hover { background: transparent; color: var(--cream); border-color: var(--cream); }
+
+    .btn-price:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+
+    /* ─── TESTIMONIAL ─── */
+    .testimonial-section {
+      background: var(--sand);
+      padding: 96px 64px;
+      text-align: center;
+    }
+
+    blockquote {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto 24px;
+      color: var(--bark);
+    }
+
+    .testimonial-author {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--primary);
+      padding: 96px 64px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--cream);
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+
+    .cta-sub {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      color: rgba(250,247,242,0.6);
+      margin-bottom: 40px;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      color: var(--primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 48px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 52px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-cta:hover { background: var(--white); }
+    .btn-cta:active { transform: scale(0.98); }
+    .btn-cta:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bark);
+      padding: 48px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.4);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      color: rgba(250,247,242,0.4);
+      text-decoration: none;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--cream); }
+    .footer-links a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; border-radius: 2px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .features-grid, .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 64px 24px; }
+      .hero-right { min-height: 300px; }
+      .section { padding: 64px 24px; }
+      .testimonial-section { padding: 64px 24px; }
+      .cta-section { padding: 64px 24px; }
+      footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 12px; }
+      .schedule-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    }
+
+    /* ─── SKIP LINK ─── */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      z-index: 200;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .skip-link:focus { top: 16px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Sage Flow",
+    "description": "Book your yoga practice. Find your stillness.",
+    "url": "",
+    "priceRange": "$$"
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="Sage Flow home">Sage Flow</a>
+    <div class="nav-links">
+      <a href="#schedule">Schedule</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#book" class="btn-primary" style="padding: 10px 24px; min-height: 40px; font-size: 12px;">Book Now</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Welcome">
+      <div class="hero-left">
+        <p class="hero-eyebrow">Yoga studio &amp; booking</p>
+        <h1>Sage Flow</h1>
+        <p class="hero-tagline">Book your practice. Find your stillness.</p>
+        <div class="hero-actions">
+          <a href="#schedule" class="btn-primary">View Schedule</a>
+          <a href="#pricing" class="btn-outline">See Pricing</a>
+        </div>
+      </div>
+      <div class="hero-right" role="img" aria-label="Decorative concentric circles representing balance and harmony">
+        <div class="hero-pattern">
+          <div class="pattern-line"></div>
+          <div class="pattern-line"></div>
+          <div class="hero-circle">
+            <div class="hero-circle-inner"></div>
+          </div>
+          <div class="pattern-line"></div>
+          <div class="pattern-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="section" aria-label="Class schedule">
+      <p class="section-label">This Week</p>
+      <h2>Step onto the mat when it works for you</h2>
+      <div class="schedule-grid">
+
+        <article class="class-card">
+          <p class="class-time">Monday — 6:30 AM</p>
+          <h3 class="class-name">Morning Vinyasa</h3>
+          <div class="class-meta">
+            <span>with Sarah Chen · 60 min</span>
+            <span class="class-spots">4 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Morning Vinyasa on Monday at 6:30 AM">Reserve Spot →</button>
+        </article>
+
+        <article class="class-card">
+          <p class="class-time">Tuesday — 12:00 PM</p>
+          <h3 class="class-name">Gentle Hatha</h3>
+          <div class="class-meta">
+            <span>with James Okafor · 75 min</span>
+            <span class="class-spots">8 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Gentle Hatha on Tuesday at 12 PM">Reserve Spot →</button>
+        </article>
+
+        <article class="class-card">
+          <p class="class-time">Wednesday — 5:30 PM</p>
+          <h3 class="class-name">Yin &amp; Restore</h3>
+          <div class="class-meta">
+            <span>with Maya Patel · 90 min</span>
+            <span class="class-spots">6 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Yin and Restore on Wednesday at 5:30 PM">Reserve Spot →</button>
+        </article>
+
+        <article class="class-card">
+          <p class="class-time">Thursday — 7:00 AM</p>
+          <h3 class="class-name">Power Flow</h3>
+          <div class="class-meta">
+            <span>with Sarah Chen · 60 min</span>
+            <span class="class-spots">2 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Power Flow on Thursday at 7 AM">Reserve Spot →</button>
+        </article>
+
+        <article class="class-card">
+          <p class="class-time">Friday — 6:00 PM</p>
+          <h3 class="class-name">Candlelight Slow Flow</h3>
+          <div class="class-meta">
+            <span>with James Okafor · 75 min</span>
+            <span class="class-spots">10 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Candlelight Slow Flow on Friday at 6 PM">Reserve Spot →</button>
+        </article>
+
+        <article class="class-card">
+          <p class="class-time">Saturday — 9:00 AM</p>
+          <h3 class="class-name">Weekend Ashtanga</h3>
+          <div class="class-meta">
+            <span>with Maya Patel · 90 min</span>
+            <span class="class-spots">5 spots left</span>
+          </div>
+          <button class="class-book" aria-label="Book Weekend Ashtanga on Saturday at 9 AM">Reserve Spot →</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section section-dark" aria-label="Why choose Sage Flow">
+      <p class="section-label">The Studio Difference</p>
+      <h2>Built around your practice, not around software</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <p class="feature-number">01</p>
+          <h3>Instant Booking</h3>
+          <p>Reserve your mat in two taps. No account required for drop-ins. Members see their pass balance in real time.</p>
+        </div>
+        <div class="feature">
+          <p class="feature-number">02</p>
+          <h3>Smart Waitlists</h3>
+          <p>Full class? Join the waitlist and get notified the moment a spot opens — automatically reserved for 15 minutes.</p>
+        </div>
+        <div class="feature">
+          <p class="feature-number">03</p>
+          <h3>Flexible Cancellation</h3>
+          <p>Cancel up to 2 hours before class with no penalty. Late cancellations still count so others get their chance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial-section" aria-label="Student testimonial">
+      <blockquote>
+        "I used to dread the booking process. Sage Flow made it so simple that the hardest part is now choosing which class to take."
+      </blockquote>
+      <p class="testimonial-author">— Elena Rodriguez, practicing since 2021</p>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="section" aria-label="Membership pricing">
+      <p class="section-label">Pricing</p>
+      <h2>Commit to your practice at any level</h2>
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <p class="price-label">Drop-In</p>
+          <p class="price-amount">$24</p>
+          <p class="price-period">per single class</p>
+          <ul class="price-features">
+            <li>Any class, any time</li>
+            <li>No commitment needed</li>
+            <li>Mat rental included</li>
+          </ul>
+          <a href="#book" class="btn-price btn-price-default">Book a Class</a>
+        </div>
+
+        <div class="price-card featured">
+          <p class="price-label">Unlimited</p>
+          <p class="price-amount">$149</p>
+          <p class="price-period">per month</p>
+          <ul class="price-features">
+            <li>Unlimited classes</li>
+            <li>Priority booking window</li>
+            <li>Guest passes (2/month)</li>
+            <li>Workshop discounts</li>
+          </ul>
+          <a href="#book" class="btn-price btn-price-featured">Start Membership</a>
+        </div>
+
+        <div class="price-card">
+          <p class="price-label">10-Class Pack</p>
+          <p class="price-amount">$199</p>
+          <p class="price-period">valid 3 months</p>
+          <ul class="price-features">
+            <li>10 classes, your pace</li>
+            <li>Shareable with a friend</li>
+            <li>Never expires if paused</li>
+          </ul>
+          <a href="#book" class="btn-price btn-price-default">Get Your Pack</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="book" class="cta-section" aria-label="Start booking">
+      <h2>Your next class is waiting</h2>
+      <p class="cta-sub">Create a free account and reserve your spot in under 30 seconds.</p>
+      <a href="#" class="btn-cta">Create Free Account</a>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <span class="footer-brand">Sage Flow © 2025</span>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="mailto:hello@sageflow.studio">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
